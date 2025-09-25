@@ -104,38 +104,39 @@ const HeroSection = () => {
       </div>
 
       {/* Main Content Container - text on top of the model viewer */}
-      <div className="relative z-10 w-full h-full flex items-center justify-center px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 items-center w-full max-w-7xl min-h-[80vh]">
-          
-          {/* Left - Large Typography "Projects" */}
-          <div className="lg:col-span-1 flex flex-col justify-center items-center lg:items-start text-center lg:text-left h-full">
-            <div className="space-y-6">
-              <h1 className="text-7xl md:text-8xl lg:text-9xl font-black text-white leading-none tracking-tight font-heading">
-                <span className="block">Create</span>
-              </h1>
-              
-              <div className="relative mt-8">
-                <h2 className="text-xl md:text-2xl font-light text-white tracking-wide font-body">
-                  <span className="typing-text">{currentText}</span>
-                  <span className="animate-pulse text-white ml-1">|</span>
-                </h2>
-              </div>
-            </div>
-          </div>
+<div className="relative z-10 w-full h-full flex items-center justify-center px-8">
+  <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full max-w-7xl min-h-[80vh] gap-8">
+    
+    {/* Left - "Singularity" */}
+    <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left h-full">
+      <div className="space-y-6">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight font-heading">
+          <span className="block">Singularity</span>
+        </h1>
 
-          {/* Center - Empty grid cell to maintain spacing */}
-          <div className="hidden lg:flex lg:col-span-1"></div>
-
-          {/* Right - Large Typography "Solutions" */}
-          <div className="lg:col-span-1 flex flex-col justify-center items-center lg:items-end text-center lg:text-right h-full">
-            <div className="space-y-6">
-              <h1 className="text-7xl md:text-8xl lg:text-9xl font-black text-white leading-none tracking-tight font-heading">
-                <span className="block">Deploy</span>
-              </h1>
-            </div>
-          </div>
+        <div className="relative mt-6">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-light text-white tracking-wide font-body">
+            <span className="typing-text">{currentText}</span>
+            <span className="animate-pulse text-white ml-1">|</span>
+          </h2>
         </div>
       </div>
+    </div>
+
+    {/* Right - "Student Lab" */}
+    <div className="flex flex-col justify-center items-center lg:items-end text-center lg:text-right h-full">
+      <div className="space-y-6">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight font-heading">
+          <span className="block">Student Lab</span>
+        </h1>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
 
       {/* Bottom Left - Clean footer */}
       <div className="absolute bottom-8 left-8 text-left space-y-1 z-20">
