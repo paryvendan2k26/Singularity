@@ -15,14 +15,14 @@ const AanuTattvaLab = () => {
       name: 'Dr. Quantum Zhang',
       role: 'Lab Director',
       specialization: 'Quantum Algorithms & Complexity',
-      image: '/api/placeholder/150/150', // Fixed: Using placeholder for now
+      image: 'https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=', // Fixed: Using placeholder for now
       bio: 'Leading quantum computing researcher with expertise in quantum algorithms and quantum machine learning.'
     },
     {
       name: 'Dr. Maya Patel',
       role: 'Research Lead',
       specialization: 'Quantum Machine Learning',
-      image: '/api/placeholder/150/150', // Fixed: Using placeholder for now
+      image: 'https://images.pexels.com/photos/3094799/pexels-photo-3094799.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', // Fixed: Using placeholder for now
       bio: 'Pioneer in quantum machine learning with multiple breakthrough publications in quantum neural networks.'
     }
   ];
