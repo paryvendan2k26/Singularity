@@ -121,21 +121,52 @@ const AanuTattvaLab = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Video Background */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover z-0"
-          src={getCloudinaryUrl('v1758569986/WhatsApp_Video_2025-09-23_at_12.34.51_AM_apnvdi.mp4')}
-          onError={(e) => {
-            console.log('Video failed to load:', e);
-            // Fallback to image background if video fails
-            e.target.style.display = 'none';
-          }}
-        >
-          Your browser does not support the video tag.
-        </video>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: 1
+            }}
+            src="https://res.cloudinary.com/djtemmctt/video/upload/v1758569986/WhatsApp_Video_2025-09-23_at_12.34.51_AM_apnvdi.mp4"
+          />
+
+          {/* Overlay for readability */}
+          <div 
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              zIndex: 2
+            }}
+          ></div>
+
+          <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-left"
+            >
+              {/* Your existing content goes here */}
+              <div className="mb-6">
+                <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
+                  <Zap className="w-10 h-10 text-white" />
+                </div>
+              </div>
+              {/* ... rest of your hero content ... */}
+            </motion.div>
+          </div>
         
         {/* Fallback background image if video fails */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 z-0"></div>
