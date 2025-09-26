@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // Add these imports
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  
+  const navigate = useNavigate(); // Add this
+  const location = useLocation(); // Add this to detect current page
 
   const navSections = [
     { name: 'Home', path: '#home', id: 'home' },
@@ -19,15 +23,17 @@ const Navbar = () => {
       const scrollY = window.scrollY;
       setIsScrolled(scrollY > 50);
 
-      // Update active section based on scroll position
-      const sections = navSections.map(section => section.id);
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const element = document.getElementById(sections[i]);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 200 && rect.bottom > 200) {
-            setActiveSection(sections[i]);
-            break;
+      // Only update active section if we're on the homepage
+      if (location.pathname === '/') {
+        const sections = navSections.map(section => section.id);
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const element = document.getElementById(sections[i]);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 200 && rect.bottom > 200) {
+              setActiveSection(sections[i]);
+              break;
+            }
           }
         }
       }
@@ -36,28 +42,45 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Call once to set initial state
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [navSections]);
+  }, [navSections, location.pathname]);
 
   const handleNavClick = (path, sectionId) => {
     setIsOpen(false);
     
     if (path.startsWith('#')) {
-      const targetId = path.substring(1);
-      
-      // Small delay to ensure mobile menu closes first
-      setTimeout(() => {
-        const element = document.getElementById(targetId);
-        if (element) {
-          const offsetTop = element.offsetTop - 80; // Account for fixed navbar
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-          setActiveSection(sectionId);
-        } else {
-          console.warn(`Element with id '${targetId}' not found`);
-        }
-      }, 100);
+      // If we're not on homepage, navigate to homepage first
+      if (location.pathname !== '/') {
+        navigate('/');
+        // Wait a bit for navigation to complete, then scroll
+        setTimeout(() => {
+          const targetId = path.substring(1);
+          const element = document.getElementById(targetId);
+          if (element) {
+            const offsetTop = element.offsetTop - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+            setActiveSection(sectionId);
+          }
+        }, 300);
+      } else {
+        // We're already on homepage, just scroll
+        const targetId = path.substring(1);
+        setTimeout(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            const offsetTop = element.offsetTop - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+            setActiveSection(sectionId);
+          } else {
+            console.warn(`Element with id '${targetId}' not found`);
+          }
+        }, 100);
+      }
     }
   };
 
@@ -72,9 +95,10 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <button 
-            onClick={() => handleNavClick('#home', 'home')}
+          <Link 
+            to="/" 
             className="flex items-center space-x-2 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+            onClick={() => setIsOpen(false)}
           >
             <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg font-heading">S</span>
@@ -82,7 +106,7 @@ const Navbar = () => {
             <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap font-heading">
               Singularity Lab
             </span>
-          </button>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -91,7 +115,7 @@ const Navbar = () => {
                 key={section.path}
                 onClick={() => handleNavClick(section.path, section.id)}
                 className={`flex items-center space-x-1 transition-colors duration-200 px-3 py-2 rounded-lg ${
-                  activeSection === section.id
+                  activeSection === section.id && location.pathname === '/'
                     ? 'text-blue-400 font-semibold' 
                     : 'text-gray-300 hover:text-blue-400'
                 } font-heading`}
@@ -119,7 +143,7 @@ const Navbar = () => {
                   key={section.path}
                   onClick={() => handleNavClick(section.path, section.id)}
                   className={`flex items-center space-x-2 py-3 px-3 w-full text-left transition-colors duration-200 rounded-lg ${
-                    activeSection === section.id
+                    activeSection === section.id && location.pathname === '/'
                       ? 'text-blue-400 font-semibold bg-blue-500/20' 
                       : 'text-gray-300 hover:text-blue-400 hover:bg-white/10'
                   } font-body`}
