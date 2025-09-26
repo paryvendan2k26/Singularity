@@ -158,13 +158,6 @@ const AanuTattvaLab = () => {
               transition={{ duration: 0.8 }}
               className="text-left"
             >
-              {/* Your existing content goes here */}
-              {/* <div className="mb-6">
-                <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
-                  <Zap className="w-10 h-10 text-white" />
-                </div>
-              </div> */}
-              {/* ... rest of your hero content ... */}
             </motion.div>
           </div>
         
