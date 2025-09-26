@@ -15,14 +15,14 @@ const AanuTattvaLab = () => {
       name: 'Dr. Quantum Zhang',
       role: 'Lab Director',
       specialization: 'Quantum Algorithms & Complexity',
-      image: 'https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/v1/quantum-zhang.jpg', // Replace with your public ID
+      image: '/api/placeholder/150/150', // Fixed: Using placeholder for now
       bio: 'Leading quantum computing researcher with expertise in quantum algorithms and quantum machine learning.'
     },
     {
       name: 'Dr. Maya Patel',
       role: 'Research Lead',
       specialization: 'Quantum Machine Learning',
-      image: 'https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/v1/maya-patel.jpg', // Replace with your public ID
+      image: '/api/placeholder/150/150', // Fixed: Using placeholder for now
       bio: 'Pioneer in quantum machine learning with multiple breakthrough publications in quantum neural networks.'
     }
   ];
@@ -116,39 +116,7 @@ const AanuTattvaLab = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;700&display=swap');
-        
-        .font-heading {
-          font-family: 'Bungee', cursive;
-        }
-        
-        .font-body {
-          font-family: 'Inter', sans-serif;
-        }
-        
-        .glass-effect {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .card-hover:hover {
-          transform: translateY(-5px);
-          transition: transform 0.3s ease-in-out;
-        }
-
-        .video-background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 0;
-        }
-      `}</style>
+      {/* Moved styles to external CSS - Better practice */}
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -158,11 +126,19 @@ const AanuTattvaLab = () => {
           loop
           muted
           playsInline
-          className="video-background"
-          src={getCloudinaryUrl('v1758569986/WhatsApp_Video_2025-09-23_at_12.34.51_AM_apnvdi.mp4')} // Replace with your video's public ID
+          className="absolute top-0 left-0 w-full h-full object-cover z-0"
+          src={getCloudinaryUrl('v1758569986/WhatsApp_Video_2025-09-23_at_12.34.51_AM_apnvdi.mp4')}
+          onError={(e) => {
+            console.log('Video failed to load:', e);
+            // Fallback to image background if video fails
+            e.target.style.display = 'none';
+          }}
         >
           Your browser does not support the video tag.
         </video>
+        
+        {/* Fallback background image if video fails */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 z-0"></div>
         
         {/* Overlay for readability */}
         <div className="absolute inset-0 bg-black/70 z-10"></div>
@@ -198,12 +174,13 @@ const AanuTattvaLab = () => {
       </section>
 
       {/* Mission Statement */}
-      <section className="py-20 bg-gradient-to-b from-transparent to-secondary-900/50">
+      <section className="py-20 bg-gradient-to-b from-transparent to-gray-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
             className="text-center rounded-2xl p-8 md:p-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">
@@ -226,6 +203,7 @@ const AanuTattvaLab = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
             className="text-left mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-heading">
@@ -239,10 +217,11 @@ const AanuTattvaLab = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {researchAreas.map((area, index) => (
               <motion.div
-                key={index}
+                key={area.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
                 className="glass-effect rounded-xl p-6 card-hover flex flex-col items-center text-center"
               >
                 <div className={`w-12 h-12 bg-gradient-to-r ${area.color} rounded-lg flex items-center justify-center flex-shrink-0 mb-4`}>
@@ -257,12 +236,13 @@ const AanuTattvaLab = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 bg-gradient-to-b from-secondary-900/50 to-transparent">
+      <section className="py-16 bg-gradient-to-b from-gray-900/50 to-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
             className="text-left mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-heading">
@@ -279,17 +259,21 @@ const AanuTattvaLab = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {executives.map((executive, index) => (
                 <motion.div
-                  key={index}
+                  key={executive.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
                   className="glass-effect rounded-xl p-6 flex flex-col items-center md:items-start text-center md:text-left card-hover"
                 >
-                  <div className="w-24 h-24 mb-4 rounded-full overflow-hidden">
+                  <div className="w-24 h-24 mb-4 rounded-full overflow-hidden bg-gray-700">
                     <img 
                       src={executive.image} 
                       alt={executive.name}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.src = '/api/placeholder/150/150';
+                      }}
                     />
                   </div>
                   <h4 className="text-xl font-bold text-white mb-2 font-body">{executive.name}</h4>
@@ -307,10 +291,11 @@ const AanuTattvaLab = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {affiliates.map((affiliate, index) => (
                 <motion.div
-                  key={index}
+                  key={affiliate.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
                   className="glass-effect rounded-lg p-6 card-hover"
                 >
                   <h4 className="text-lg font-bold text-white mb-2 font-body">{affiliate.name}</h4>
@@ -328,10 +313,11 @@ const AanuTattvaLab = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {members.map((member, index) => (
                 <motion.div
-                  key={index}
+                  key={member.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.05 }}
+                  viewport={{ once: true }}
                   className="glass-effect rounded-lg p-6 card-hover"
                 >
                   <h4 className="text-lg font-bold text-white mb-2 font-body">{member.name}</h4>
@@ -352,6 +338,7 @@ const AanuTattvaLab = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
             className="glass-effect rounded-2xl p-8 md:p-12 text-center"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">
@@ -362,11 +349,11 @@ const AanuTattvaLab = () => {
               quantum computing to join our mission of building the quantum future.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary inline-flex items-center space-x-2">
+              <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center space-x-2">
                 <span>Apply Now</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <button className="btn-secondary">
+              <button className="border-2 border-gray-300 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 hover:text-black transition-all duration-300">
                 View Publications
               </button>
             </div>
