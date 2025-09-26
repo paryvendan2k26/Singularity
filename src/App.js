@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -11,10 +12,12 @@ import BhaskaracharyaLab from './pages/labs/BhaskaracharyaLab';
 import AgastyaLab from './pages/labs/AgastyaLab';
 import NavyaVigyanLab from './pages/labs/NavyaVigyanLab';
 
+
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-black">
+        <ScrollToTop />
         <Navbar />
         <main>
           <Routes>
