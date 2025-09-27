@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+// Import routes
+const userRoutes = require('./routes/userRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,10 +20,8 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected successfully.'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Basic route for testing
-app.get('/', (req, res) => {
-  res.send('Hello from the server!');
-});
+// Use Routes
+app.use('/api/users', userRoutes); // All user routes will start with /api/users
 
 // Start the server
 app.listen(PORT, () => {
