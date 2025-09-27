@@ -12,6 +12,12 @@ import NavyaVigyanLab from './pages/labs/NavyaVigyanLab';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 
+// --- ADD THESE IMPORTS ---
+import BlogListPage from './pages/BlogListPage';
+import CreateBlogPage from './pages/CreateBlogPage';
+import EditBlogPage from './pages/EditBlogPage';
+
+
 
 function App() {
   return (
@@ -29,6 +35,11 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             
+            {/* --- ADD THESE ROUTES --- */}
+            <Route path="/blogs" element={<BlogListPage />} />
+            <Route path="/create-blog" element={<CreateBlogPage />} />
+            <Route path="/edit-blog/:id" element={<EditBlogPage />} />
+
           </Routes>
         </main>
         <Footer />
