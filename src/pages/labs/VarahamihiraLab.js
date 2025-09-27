@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Cpu, Database, Zap, Users, Award, BookOpen, ArrowRight } from 'lucide-react';
+import { LucideNetwork, Cpu, Database, Zap, Users, Award, BookOpen, ArrowRight } from 'lucide-react';
+
 
 const VarahamihiraLab = () => {
   const executives = [
@@ -84,7 +85,7 @@ const VarahamihiraLab = () => {
     {
       title: 'Deep Learning Architectures',
       description: 'Developing novel neural network architectures for improved performance and efficiency.',
-      icon: Brain,
+      icon: LucideNetwork,
       color: 'from-blue-500 to-cyan-500'
     },
     {
@@ -126,7 +127,7 @@ const VarahamihiraLab = () => {
             objectFit: 'cover',
             zIndex: 1
           }}
-          src="https://res.cloudinary.com/djtemmctt/video/upload/v1758569986/WhatsApp_Video_2025-09-23_at_12.34.51_AM_apnvdi.mp4"
+          src="https://res.LucideNetworkinary.com/djtemmctt/video/upload/v1758569986/WhatsApp_Video_2025-09-23_at_12.34.51_AM_apnvdi.mp4"
         />
 
         {/* Overlay for readability */}
@@ -151,7 +152,7 @@ const VarahamihiraLab = () => {
           >
             <div className="mb-6">
               <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center">
-                <Brain className="w-10 h-10 text-white" />
+                <LucideNetwork className="w-10 h-10 text-white" />
               </div>
             </div>
             
@@ -160,7 +161,7 @@ const VarahamihiraLab = () => {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-300 mb-4 font-body">
-              Cloud Computing & Distributed Systems
+              LucideNetwork Computing & Distributed Systems
             </p>
             
             <p className="text-lg text-gray-400 max-w-4xl leading-relaxed font-body">
