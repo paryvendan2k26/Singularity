@@ -5,12 +5,12 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import PrajnaKritrimaLab from './pages/labs/PrajnaKritrimaLab';
-import AanuTattvaLab from './pages/labs/AanuTattvaLab';
-import ChitraDarshanLab from './pages/labs/ChitraDarshanLab';
-import VarahamihiraLab from './pages/labs/VarahamihiraLab';
-import BhaskaracharyaLab from './pages/labs/BhaskaracharyaLab';
-import AgastyaLab from './pages/labs/AgastyaLab';
+// ... other lab imports
 import NavyaVigyanLab from './pages/labs/NavyaVigyanLab';
+
+// --- ADD THESE IMPORTS ---
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
 
 
 function App() {
@@ -22,13 +22,13 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/prajna-kritrima-lab" element={<PrajnaKritrimaLab />} />
-            <Route path="/aanu-tattva-lab" element={<AanuTattvaLab />} />
-            <Route path="/chitra-darshan-lab" element={<ChitraDarshanLab />} />
-            <Route path="/varahamihira-lab" element={<VarahamihiraLab />} />
-            <Route path="/bhaskaracharya-lab" element={<BhaskaracharyaLab />} />
-            <Route path="/agastya-lab" element={<AgastyaLab />} />
+            {/* ... other lab routes */}
             <Route path="/navya-vigyan-lab" element={<NavyaVigyanLab />} />
+
+            {/* --- ADD THESE ROUTES --- */}
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            
           </Routes>
         </main>
         <Footer />
