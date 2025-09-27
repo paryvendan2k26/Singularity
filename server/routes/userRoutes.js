@@ -5,23 +5,33 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+const validator = require('validator'); 
+
 // === REGISTER A NEW USER ===
 router.post('/register', async (req, res) => {
   try {
+    const { username, email, password } = req.body;
+
+    // --- ADD THIS VALIDATION BLOCK ---
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ message: 'Please enter a valid email address.' });
+    }
+    // ------------------------------------
+
     // Check if the user already exists
-    const userExists = await User.findOne({ email: req.body.email });
+    const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: 'User with this email already exists.' });
     }
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user
     const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
+      username,
+      email,
       password: hashedPassword,
     });
 
