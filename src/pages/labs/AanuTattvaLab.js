@@ -204,7 +204,7 @@ const AanuTattvaLab = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            // viewport={{ once: true }}
             className="text-center rounded-2xl p-8 md:p-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">
@@ -227,7 +227,7 @@ const AanuTattvaLab = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            // viewport={{ once: true }}
             className="text-left mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-heading">
@@ -245,7 +245,7 @@ const AanuTattvaLab = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                // viewport={{ once: true }}
                 className="glass-effect rounded-xl p-6 card-hover flex flex-col items-center text-center"
               >
                 <div className={`w-12 h-12 bg-gradient-to-r ${area.color} rounded-lg flex items-center justify-center flex-shrink-0 mb-4`}>
@@ -266,7 +266,7 @@ const AanuTattvaLab = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            // viewport={{ once: true }}
             className="text-left mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-heading">
@@ -287,7 +287,7 @@ const AanuTattvaLab = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  // viewport={{ once: true }}
                   className="glass-effect rounded-xl p-6 flex flex-col items-center md:items-start text-center md:text-left card-hover"
                 >
                   <div className="w-24 h-24 mb-4 rounded-full overflow-hidden bg-gray-700">
@@ -319,7 +319,7 @@ const AanuTattvaLab = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  // viewport={{ once: true }}
                   className="glass-effect rounded-lg p-6 card-hover"
                 >
                   <h4 className="text-lg font-bold text-white mb-2 font-body">{affiliate.name}</h4>
@@ -341,7 +341,7 @@ const AanuTattvaLab = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.05 }}
-                  viewport={{ once: true }}
+                  // viewport={{ once: true }}
                   className="glass-effect rounded-lg p-6 card-hover"
                 >
                   <h4 className="text-lg font-bold text-white mb-2 font-body">{member.name}</h4>
@@ -362,7 +362,7 @@ const AanuTattvaLab = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            // viewport={{ once: true }}
             className="glass-effect rounded-2xl p-8 md:p-12 text-center"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">
