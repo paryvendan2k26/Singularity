@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react'; // Import useContext
 import { Menu, X } from 'lucide-react';
-import { Link, useNavigate, useLocation } from 'react-router-dom'; // Add these imports
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext'; // Import your AuthContext
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   
-  const navigate = useNavigate(); // Add this
-  const location = useLocation(); // Add this to detect current page
+  const { user, logout } = useContext(AuthContext); // Get user and logout from context
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navSections = [
     { name: 'Home', path: '#home', id: 'home' },
@@ -16,7 +18,7 @@ const Navbar = () => {
     { name: 'Labs', path: '#labs', id: 'labs' },
     { name: 'Events', path: '#events', id: 'events' },
     { name: 'Contact', path: '#contact', id: 'contact' },
-    { name: 'Blogs', path: '#blogs', id: 'blogs' },
+    { name: 'Blogs', path: '/blogs', id: 'blogs' }, // <-- UPDATED: Changed path to '/blogs'
   ];
 
   useEffect(() => {
@@ -24,9 +26,8 @@ const Navbar = () => {
       const scrollY = window.scrollY;
       setIsScrolled(scrollY > 50);
 
-      // Only update active section if we're on the homepage
       if (location.pathname === '/') {
-        const sections = navSections.map(section => section.id);
+        const sections = navSections.filter(s => s.path.startsWith('#')).map(s => s.id);
         for (let i = sections.length - 1; i >= 0; i--) {
           const element = document.getElementById(sections[i]);
           if (element) {
@@ -41,7 +42,7 @@ const Navbar = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call once to set initial state
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [navSections, location.pathname]);
 
@@ -49,40 +50,33 @@ const Navbar = () => {
     setIsOpen(false);
     
     if (path.startsWith('#')) {
-      // If we're not on homepage, navigate to homepage first
       if (location.pathname !== '/') {
         navigate('/');
-        // Wait a bit for navigation to complete, then scroll
         setTimeout(() => {
           const targetId = path.substring(1);
           const element = document.getElementById(targetId);
           if (element) {
             const offsetTop = element.offsetTop - 80;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
-            });
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
             setActiveSection(sectionId);
           }
         }, 300);
       } else {
-        // We're already on homepage, just scroll
         const targetId = path.substring(1);
-        setTimeout(() => {
-          const element = document.getElementById(targetId);
-          if (element) {
-            const offsetTop = element.offsetTop - 80;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
-            });
-            setActiveSection(sectionId);
-          } else {
-            console.warn(`Element with id '${targetId}' not found`);
-          }
-        }, 100);
+        const element = document.getElementById(targetId);
+        if (element) {
+          const offsetTop = element.offsetTop - 80;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+          setActiveSection(sectionId);
+        }
       }
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsOpen(false);
+    navigate('/');
   };
 
   return (
@@ -90,7 +84,7 @@ const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'bg-black/50 backdrop-blur-md shadow-lg border-b border-white/10' 
-          : 'bg-transparent'
+                    : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -110,26 +104,55 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-1">
             {navSections.map((section) => (
-              <button
-                key={section.path}
-                onClick={() => handleNavClick(section.path, section.id)}
-                className={`flex items-center space-x-1 transition-colors duration-200 px-3 py-2 rounded-lg ${
-                  activeSection === section.id && location.pathname === '/'
-                    ? 'text-blue-400 font-semibold' 
-                    : 'text-gray-300 hover:text-blue-400'
-                } font-heading`}
-              >
-                <span>{section.name}</span>
-              </button>
+              section.path.startsWith('#') ? (
+                <button
+                  key={section.path}
+                  onClick={() => handleNavClick(section.path, section.id)}
+                  className={`transition-colors duration-200 px-3 py-2 rounded-lg ${
+                    activeSection === section.id && location.pathname === '/'
+                      ? 'text-blue-400 font-semibold' 
+                      : 'text-gray-300 hover:text-blue-400'
+                  } font-heading`}
+                >
+                  {section.name}
+                </button>
+              ) : (
+                <Link
+                  key={section.path}
+                  to={section.path}
+                  className={`transition-colors duration-200 px-3 py-2 rounded-lg ${
+                    location.pathname === section.path
+                      ? 'text-blue-400 font-semibold'
+                      : 'text-gray-300 hover:text-blue-400'
+                  } font-heading`}
+                >
+                  {section.name}
+                </Link>
+              )
             ))}
+            
+            {/* --- Auth links for desktop --- */}
+            <div className="flex items-center space-x-2 pl-4">
+              {user ? (
+                <>
+                  <span className="text-white font-semibold">Hi, {user.username}</span>
+                  <button onClick={handleLogout} className="text-gray-300 hover:text-white bg-red-600 px-3 py-2 rounded-lg transition-colors">Logout</button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="text-gray-300 hover:text-white px-3 py-2 rounded-lg transition-colors">Login</Link>
+                  <Link to="/register" className="text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors">Register</Link>
+                </>
+              )}
+            </div>
           </div>
 
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-300 hover:text-blue-400 transition-colors duration-200 p-2 rounded-lg hover:bg-white/10"
+            className="md:hidden text-gray-300 hover:text-blue-400"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -137,36 +160,48 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden bg-black/95 backdrop-blur-md border-t border-white/20 rounded-b-lg">
-            <div className="px-4 py-4 space-y-2">
-              {navSections.map((section) => (
+          <div className="md:hidden bg-black/95 py-4 space-y-2">
+            {navSections.map((section) => (
+               section.path.startsWith('#') ? (
                 <button
                   key={section.path}
                   onClick={() => handleNavClick(section.path, section.id)}
-                  className={`flex items-center space-x-2 py-3 px-3 w-full text-left transition-colors duration-200 rounded-lg ${
-                    activeSection === section.id && location.pathname === '/'
-                      ? 'text-blue-400 font-semibold bg-blue-500/20' 
-                      : 'text-gray-300 hover:text-blue-400 hover:bg-white/10'
-                  } font-body`}
+                  className={`block w-full text-left py-2 px-3 rounded-lg ${
+                    activeSection === section.id && location.pathname === '/' ? 'text-blue-400 bg-white/10' : 'text-gray-300 hover:bg-white/10'
+                  }`}
                 >
-                  <span>{section.name}</span>
+                  {section.name}
                 </button>
-              ))}
+               ) : (
+                <Link
+                  key={section.path}
+                  to={section.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`block w-full text-left py-2 px-3 rounded-lg ${
+                    location.pathname === section.path ? 'text-blue-400 bg-white/10' : 'text-gray-300 hover:bg-white/10'
+                  }`}
+                >
+                  {section.name}
+                </Link>
+               )
+            ))}
+            {/* --- Auth links for mobile --- */}
+            <div className="border-t border-white/20 mt-4 pt-4 space-y-2">
+              {user ? (
+                <>
+                  <span className="block text-white px-3 py-2">Welcome, {user.username}</span>
+                  <button onClick={handleLogout} className="block w-full text-left text-red-400 hover:bg-white/10 py-2 px-3 rounded-lg">Logout</button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setIsOpen(false)} className="block text-gray-300 hover:bg-white/10 py-2 px-3 rounded-lg">Login</Link>
+                  <Link to="/register" onClick={() => setIsOpen(false)} className="block text-gray-300 hover:bg-white/10 py-2 px-3 rounded-lg">Register</Link>
+                </>
+              )}
             </div>
           </div>
         )}
       </div>
-      <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;700&display=swap');
-        
-        .font-heading {
-          font-family: 'Bungee', cursive;
-        }
-        
-        .font-body {
-          font-family: 'Inter', sans-serif;
-        }
-      `}</style>
     </nav>
   );
 };
