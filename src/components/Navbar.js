@@ -16,6 +16,7 @@ const Navbar = () => {
     { name: 'Labs', path: '#labs', id: 'labs' },
     { name: 'Events', path: '#events', id: 'events' },
     { name: 'Contact', path: '#contact', id: 'contact' },
+    { name: 'Blogs', path: '#blogs', id: 'blogs' },
   ];
 
   useEffect(() => {
@@ -104,7 +105,7 @@ const Navbar = () => {
               <span className="text-white font-bold text-lg font-heading">S</span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap font-heading">
-              Singularity Lab
+              The Singularity Lab - SRMAP
             </span>
           </Link>
 
