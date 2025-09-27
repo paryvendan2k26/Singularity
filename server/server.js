@@ -7,6 +7,7 @@ require('dotenv').config();
 
 // Import routes
 const userRoutes = require('./routes/userRoutes');
+const blogRoutes = require('./routes/blogRoutes'); // <-- Add this line
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,7 +22,8 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Use Routes
-app.use('/api/users', userRoutes); // All user routes will start with /api/users
+app.use('/api/users', userRoutes);
+app.use('/api/blogs', blogRoutes); // <-- Add this line
 
 // Start the server
 app.listen(PORT, () => {
