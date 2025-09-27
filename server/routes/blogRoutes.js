@@ -15,6 +15,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+// === GET A SINGLE BLOG BY ID (Public) ===
+router.get('/:id', async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+    res.json(blog);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 // === CREATE A NEW BLOG (Protected) ===
 router.post('/', auth, async (req, res) => {
   try {
