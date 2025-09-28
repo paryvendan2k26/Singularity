@@ -90,18 +90,18 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center space-x-2 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity duration-200"
-            onClick={() => setIsOpen(false)}
-          >
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg font-heading">S</span>
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap font-heading">
-              The Singularity Lab - SRMAP
-            </span>
-          </Link>
+            <Link 
+              to="/" 
+              className="flex items-center space-x-2 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+              onClick={() => setIsOpen(false)}
+            >
+              <div className="p-1 bg-white/ rounded-lg"> {/* Added background and padding */}
+                <img src="/new-logo.jpg" alt="Singularity Lab Logo" className="h-16 w-16" /> {/* Increased size */}
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap font-heading">
+                The Singularity Lab - SRMAP
+              </span>
+            </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
