@@ -54,7 +54,7 @@ const Footer = () => {
           {/* Main Title Column */}
           <div className="md:col-span-1">
             <h2 className="text-3xl md:text-3xl lg:text-3xl font-black font-heading leading-tight">
-              SINGULARITY LAB
+              The SINGULARITY LAB
             </h2>
           </div>
           
@@ -65,7 +65,7 @@ const Footer = () => {
               <h3 className="text-xl font-bold font-heading mb-4">Menu</h3>
               <ul className="space-y-2">
                 <li><a href="#" className="hover:text-gray-400">Work</a></li>
-                <li><a href="#about" className="hover:text-gray-400">Exhibitions</a></li>
+                <li><a href="#" className="hover:text-gray-400">Exhibitions</a></li>
                 <li><a href="#" className="hover:text-gray-400">Stories</a></li>
                 <li><a href="#" className="hover:text-gray-400">About</a></li>
                 <li><a href="#" className="hover:text-gray-400">Inquiries</a></li>
@@ -76,9 +76,9 @@ const Footer = () => {
             <div className="col-span-1">
               <h3 className="text-xl font-bold font-heading mb-4">Social</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-gray-400">Instagram</a></li>
+                <li><a href="http://www.instagram.com/thesingularity.srmap" className="hover:text-gray-400">Instagram</a></li>
                 <li><a href="#" className="hover:text-gray-400">X / Twitter</a></li>
-                <li><a href="#" className="hover:text-gray-400">LinkedIn</a></li>
+                <li><a href="https://www.linkedin.com/company/the-singularity-advanced-research-lab-srmap/" className="hover:text-gray-400">LinkedIn</a></li>
                 <li><a href="#" className="hover:text-gray-400">Behance</a></li>
                 <li><a href="#" className="hover:text-gray-400">Dribbble</a></li>
                 <li><a href="#" className="hover:text-gray-400">Patreon</a></li>
@@ -110,7 +110,7 @@ const Footer = () => {
 
         {/* Bottom text */}
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-          <p className="mb-4 md:mb-0">© 2024 Singularity Lab. All rights reserved.</p>
+          <p className="mb-4 md:mb-0">© 2024 The Singularity Lab. All rights reserved.</p>
           <div className="flex space-x-6">
             <a href="#" className="hover:text-gray-200">Privacy Policy</a>
             <a href="#" className="hover:text-gray-200">Terms of Service</a>
