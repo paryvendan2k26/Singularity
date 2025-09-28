@@ -21,6 +21,8 @@ import BlogListPage from './pages/BlogListPage';
 import CreateBlogPage from './pages/CreateBlogPage';
 import EditBlogPage from './pages/EditBlogPage';
 
+import SingleBlogPage from './pages/SingleBlogPage';
+
 // This new component will help us control the layout
 const PageLayout = ({ children }) => {
   const location = useLocation();
@@ -64,6 +66,7 @@ function App() {
           <Route path="/blogs" element={<BlogListPage />} />
           <Route path="/create-blog" element={<CreateBlogPage />} />
           <Route path="/edit-blog/:id" element={<EditBlogPage />} />
+          <Route path="/blogs/:id" element={<SingleBlogPage />} />
         </Routes>
       </PageLayout>
     </Router>
