@@ -9,8 +9,16 @@ const CreateBlogPage = () => {
   const navigate = useNavigate();
 
   const handleCreate = async (blogData) => {
+    const formData = new FormData();
+    formData.append('title', blogData.title);
+    formData.append('content', blogData.content);
+    if (blogData.media) {
+      formData.append('media', blogData.media);
+    }
+
     try {
-      await axios.post('http://localhost:5000/api/blogs', blogData);
+      // Axios will automatically set the correct headers for FormData
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/blogs`, formData);
       navigate('/blogs');
     } catch (error) {
       console.error('Failed to create blog post:', error);
