@@ -1,7 +1,7 @@
 // src/context/AuthContext.js
 
 import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api'; // Correctly using our new api instance
 
 export const AuthContext = createContext();
 
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check if a token exists and fetch user data on initial load
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       const storedUser = JSON.parse(sessionStorage.getItem('user'));
       if(storedUser) {
         setUser(storedUser);
@@ -22,7 +22,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', {
+      // CORRECTED: The URL is now shorter
+      const response = await api.post('/api/users/login', {
         email,
         password,
       });
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
       sessionStorage.setItem('user', JSON.stringify(user));
       setToken(token);
       setUser(user);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       return response;
     } catch (error) {
       console.error('Login failed:', error);
@@ -45,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     sessionStorage.removeItem('user');
     setToken(null);
     setUser(null);
-    delete axios.defaults.headers.common['Authorization'];
+    delete api.defaults.headers.common['Authorization'];
   };
 
   return (

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api'; // Import our new api instance
 import BlogForm from '../components/BlogForm';
 
 const CreateBlogPage = () => {
@@ -17,8 +17,9 @@ const CreateBlogPage = () => {
     }
 
     try {
-      // Axios will automatically set the correct headers for FormData
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/blogs`, formData);
+      // api will automatically set the correct headers for FormData
+      // This is correct
+      await api.post('/api/blogs', formData);
       navigate('/blogs');
     } catch (error) {
       console.error('Failed to create blog post:', error);

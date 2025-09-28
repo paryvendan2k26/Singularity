@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api'; // Import our new api instance
 import { AuthContext } from '../context/AuthContext';
 
 const BlogListPage = () => {
@@ -13,7 +13,7 @@ const BlogListPage = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/blogs`);
+        const response = await api.get('/api/blogs');
         setBlogs(response.data);
       } catch (error) {
         console.error('Failed to fetch blogs:', error);
@@ -27,7 +27,7 @@ const BlogListPage = () => {
   const handleDelete = async (blogId) => {
     if (window.confirm('Are you sure you want to delete this blog post?')) {
       try {
-        await axios.delete(`${process.env.REACT_APP_API_URL}/api/blogs/${blogId}`);
+        await api.delete(`/api/blogs/${blogId}`);
         // Update state to remove the deleted blog instantly
         setBlogs(blogs.filter(blog => blog._id !== blogId));
       } catch (error) {

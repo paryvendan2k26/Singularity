@@ -1,7 +1,7 @@
 // src/pages/RegisterPage.js
 
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api'; // Correctly using our new api instance
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
@@ -14,7 +14,8 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/users/register', {
+      // CORRECTED: The URL is now shorter
+      await api.post('/api/users/register', {
         username,
         email,
         password,
@@ -26,7 +27,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen text-white">
+    <div className="flex items-center justify-center min-h-screen text-white pt-24">
       <form onSubmit={handleSubmit} className="p-8 rounded-lg shadow-lg w-full max-w-md glass-effect">
         <h2 className="text-3xl font-bold mb-6 text-center">Register</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
