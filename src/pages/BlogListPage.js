@@ -24,7 +24,7 @@ const BlogListPage = () => {
     fetchBlogs();
   }, []);
 
-  const handleDelete = async (blogId) => {
+  const handleDelete = async (blogId, event) => {
     // This stops the link navigation when clicking the delete button
     event.stopPropagation();
     event.preventDefault();
