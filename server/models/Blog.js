@@ -20,6 +20,12 @@ const blogSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, // This links the blog to a user
     ref: 'User', // The 'User' model we just created
     required: true
+  },
+  mediaUrl: {
+    type: String,
+  },
+  mediaType: {
+    type: String, // Will be 'image' or 'video'
   }
 }, {
   timestamps: true // Automatically adds 'createdAt' and 'updatedAt' fields
