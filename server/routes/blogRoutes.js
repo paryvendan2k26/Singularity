@@ -32,7 +32,7 @@ router.get('/:id', async (req, res) => {
 });
 
 
-// === CREATE A NEW BLOG (Protected) ===
+// === CREATE A NEW BLOG (Protected , now with file upload) ===
 router.post('/', auth, upload.single('media'), async (req, res) => {
   try {
     const { title, content } = req.body;
