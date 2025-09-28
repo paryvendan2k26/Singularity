@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react'; // Added ChevronDown for dropdown indicator
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { motion, AnimatePresence } from 'framer-motion'; // Added for animations
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [isLabsOpen, setIsLabsOpen] = useState(false); // State for desktop dropdown
-  const [isMobileLabsOpen, setMobileLabsOpen] = useState(false); // State for mobile accordion
+  const [isLabsOpen, setIsLabsOpen] = useState(false);
+  const [isMobileLabsOpen, setMobileLabsOpen] = useState(false);
   
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // --- NEW: Centralized data for labs to create dropdown links ---
   const labLinks = [
     { name: 'Prajna Kritrima Lab', path: '/prajna-kritrima-lab' },
     { name: 'Aanu Tattva Lab', path: '/aanu-tattva-lab' },
@@ -29,13 +28,15 @@ const Navbar = () => {
   const navSections = [
     { name: 'Home', path: '#home', id: 'home' },
     { name: 'About', path: '#about', id: 'about' },
-    { name: 'Labs', path: '#labs', id: 'labs', sublinks: labLinks }, // Added sublinks
+    { name: 'Labs', path: '#labs', id: 'labs', sublinks: labLinks },
     { name: 'Events', path: '#events', id: 'events' },
     { name: 'Contact', path: '#contact', id: 'contact' },
     { name: 'Blogs', path: '/blogs', id: 'blogs' },
   ];
 
-  // ... (useEffect for scroll handling remains the same)
+  // --- NEW: A variable to check if we are on any lab page ---
+  const isLabActive = labLinks.some(lab => location.pathname === lab.path);
+
   useEffect(() => {
     const handleScroll = () => {
         const scrollY = window.scrollY;
@@ -94,21 +95,19 @@ const Navbar = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black/50 backdrop-blur-md shadow-lg border-b border-white/10' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity duration-200" onClick={() => setIsOpen(false)}>
-            <div className="p-1 bg-white/10 rounded-lg">
-              <img src="/singularity-logo.png" alt="Singularity Lab Logo" className="h-9 w-9" />
+            <div className="p-1 bg-white/ rounded-lg">
+              <img src="/new-logo.jpg" alt="Singularity Lab Logo" className="h-16 w-16" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap font-heading">The Singularity Lab - SRMAP</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navSections.map((section) => (
               section.sublinks ? (
-                // --- NEW: Dropdown Menu for Labs ---
                 <div key={section.name} className="relative" onMouseEnter={() => setIsLabsOpen(true)} onMouseLeave={() => setIsLabsOpen(false)}>
-                  <button className={`flex items-center transition-colors duration-200 px-3 py-2 rounded-lg ${activeSection === section.id && location.pathname === '/' ? 'text-blue-400 font-semibold' : 'text-gray-300 hover:text-blue-400'} font-heading`}>
+                  {/* --- CHANGED: Added 'isLabActive' to the className logic --- */}
+                  <button className={`flex items-center transition-colors duration-200 px-3 py-2 rounded-lg ${ (activeSection === section.id && location.pathname === '/') || isLabActive ? 'text-blue-400 font-semibold' : 'text-gray-300 hover:text-blue-400'} font-heading`}>
                     {section.name}
                     <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${isLabsOpen ? 'rotate-180' : ''}`} />
                   </button>
@@ -136,7 +135,6 @@ const Navbar = () => {
                 </Link>
               )
             ))}
-            {/* Auth links for desktop */}
             <div className="flex items-center space-x-4 pl-4">
               {user ? (
                 <>
@@ -152,22 +150,20 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile menu button */}
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-gray-300 hover:text-blue-400">
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         <AnimatePresence>
         {isOpen && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-black/95 overflow-hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navSections.map((section) => (
                 section.sublinks ? (
-                  // --- NEW: Accordion for mobile ---
                   <div key={section.name}>
-                    <button onClick={() => setMobileLabsOpen(!isMobileLabsOpen)} className="flex justify-between items-center w-full text-left py-2 px-3 rounded-lg text-gray-300 hover:bg-white/10">
+                    {/* --- CHANGED: Added 'isLabActive' to the className logic for mobile --- */}
+                    <button onClick={() => setMobileLabsOpen(!isMobileLabsOpen)} className={`flex justify-between items-center w-full text-left py-2 px-3 rounded-lg hover:bg-white/10 ${isLabActive ? 'text-blue-400' : 'text-gray-300'}`}>
                       <span>{section.name}</span>
                       <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${isMobileLabsOpen ? 'rotate-180' : ''}`} />
                     </button>
@@ -191,7 +187,6 @@ const Navbar = () => {
                   </Link>
                 )
               ))}
-              {/* Auth links for mobile */}
               <div className="border-t border-white/20 mt-4 pt-4 space-y-2">
                 {user ? (
                   <>
