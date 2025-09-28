@@ -9,7 +9,7 @@ const CLOUDINARY_CLOUD_NAME = 'djtemmctt';
 
 const HeroSection = () => {
   const [currentText, setCurrentText] = useState("");
-  const fullText = "Innovation";
+  const fullText = "Advanced Student Research Lab";
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
@@ -138,12 +138,15 @@ const HeroSection = () => {
 
 
 
-      {/* Bottom Left - Clean footer */}
-      <div className="absolute bottom-8 left-8 text-left space-y-1 z-20">
-        <p className="text-xs text-gray-500 uppercase tracking-wider font-body">Powered by</p>
-        <p className="text-sm font-medium text-white font-body">Microsoft Student Community</p>
-        <p className="text-xs text-gray-400 font-body">SRM University - AP</p>
-      </div>
+     {/* Bottom Left - Clean footer */}
+        <div className="absolute bottom-8 right-8 z-20 flex items-center gap-x-4">
+          <img src="/msc-logo.png" alt="Microsoft Student Community Logo" className="h-16 w-auto" />
+          <div>
+            <p className="text-sm text-gray-500 uppercase tracking-wider font-body">Powered by</p>
+            <p className="text-base font-medium text-white font-body">Microsoft Student Community</p>
+            <p className="text-sm text-gray-400 font-body">SRM University - AP</p>
+          </div>
+        </div>
 
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;700&display=swap');
@@ -397,7 +400,8 @@ const Home = () => {
       <HeroSection />
 
       {/* Mouse Trail SVG */}
-      <svg className="fixed inset-0 w-full h-full pointer-events-none z-50">
+      {/* Lining effect of mouse on home page */}
+      {/* <svg className="fixed inset-0 w-full h-full pointer-events-none z-50">
         <polyline 
           points={mouseTrailPath} 
           fill="none" 
@@ -406,7 +410,7 @@ const Home = () => {
           strokeLinecap="round" 
           strokeLinejoin="round" 
         />
-      </svg>
+      </svg> */}
 
 
       {/* About sectoin of home pageb with Lab Images Section */}
@@ -536,7 +540,7 @@ const Home = () => {
       {/* Events Section */}
       <section id="events" className="min-h-[60vh] py-20 bg-black text-white flex items-center justify-center">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
-          <div className="text-right mb-16">
+          <div className="text-left mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-heading">
               Events
             </h2>
