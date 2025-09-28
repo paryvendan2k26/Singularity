@@ -5,6 +5,8 @@ const Blog = require('../models/Blog');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 
+const upload = require('../config/cloudinary');
+
 // === GET ALL BLOGS (Public) ===
 router.get('/', async (req, res) => {
   try {
@@ -31,7 +33,7 @@ router.get('/:id', async (req, res) => {
 
 
 // === CREATE A NEW BLOG (Protected) ===
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, upload.single('media'), async (req, res) => {
   try {
     const { title, content } = req.body;
     const user = await User.findById(req.user.id);
@@ -40,13 +42,15 @@ router.post('/', auth, async (req, res) => {
       title,
       content,
       authorId: req.user.id,
-      authorName: user.username
+      authorName: user.username,
+      mediaUrl: req.file ? req.file.path : '', // URL from Cloudinary
+      mediaType: req.file ? req.file.mimetype.split('/')[0] : '' // 'image' or 'video'
     });
 
     const savedBlog = await newBlog.save();
     res.status(201).json(savedBlog);
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
