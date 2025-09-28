@@ -7,13 +7,13 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(sessionStorage.getItem('token'));
 
   useEffect(() => {
     // Check if a token exists and fetch user data on initial load
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const storedUser = JSON.parse(localStorage.getItem('user'));
+      const storedUser = JSON.parse(sessionStorage.getItem('user'));
       if(storedUser) {
         setUser(storedUser);
       }
@@ -28,8 +28,8 @@ export const AuthProvider = ({ children }) => {
       });
 
       const { token, user } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      sessionStorage.setItem('token', token);
+      sessionStorage.setItem('user', JSON.stringify(user));
       setToken(token);
       setUser(user);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -41,8 +41,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     setToken(null);
     setUser(null);
     delete axios.defaults.headers.common['Authorization'];
