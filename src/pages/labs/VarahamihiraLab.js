@@ -9,7 +9,7 @@ const VarahamihiraLab = () => {
       name: 'Dr. Sarah Chen',
       role: 'Lab Director',
       specialization: 'Deep Learning & Neural Networks',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
       bio: 'Leading researcher in deep learning with 10+ years of experience in neural network architectures.'
     },
     {

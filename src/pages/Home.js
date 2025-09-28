@@ -111,7 +111,7 @@ const HeroSection = () => {
     <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left h-full">
       <div className="space-y-6">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight font-heading">
-          <span className="block">Singularity</span>
+          <span className="block"> Singularity</span>
         </h1>
 
         <div className="relative mt-6">
@@ -283,13 +283,14 @@ const Home = () => {
     return `${CLOUDINARY_URL_BASE}${transformations}${publicId}`;
   };
 
+  // Labs Section on home page
   const labs = [
     {
       name: 'Prajna Kritrima Lab',
       path: '/prajna-kritrima-lab',
       tagline: 'AI/ML, Deep Learning, Generative AI',
       description: 'Pioneering artificial intelligence and machine learning research with cutting-edge neural networks and generative models.',
-      image: getCloudinaryUrl('v1709459341/lab-image-1.jpg'), // Replace with your image's Public ID
+      image: getCloudinaryUrl('v1758735862/Screenshot_from_2025-09-24_23-12-57_p3xz52.png'), // Replace with your image's Public ID
       icon: Brain,
       color: 'from-blue-500 to-cyan-500'
     },
@@ -307,7 +308,7 @@ const Home = () => {
       path: '/chitra-darshan-lab',
       tagline: 'Game Development, AR, VR, Mixed Reality',
       description: 'Creating immersive digital experiences through game development and extended reality technologies.',
-      image: getCloudinaryUrl('v1709459341/lab-image-3.jpg'), // Replace with your image's Public ID
+      image: getCloudinaryUrl('v1758735862/Screenshot_from_2025-09-24_23-12-57_p3xz52.png'), // Replace with your image's Public ID
       icon: Gamepad2,
       color: 'from-green-500 to-emerald-500'
     },
@@ -316,7 +317,7 @@ const Home = () => {
       path: '/varahamihira-lab',
       tagline: 'Cloud Computing, Distributed Systems',
       description: 'Building scalable cloud infrastructure and distributed systems for the next generation of applications.',
-      image: getCloudinaryUrl('v1709459341/lab-image-4.jpg'), // Replace with your image's Public ID
+      image: getCloudinaryUrl('v1758735862/Screenshot_from_2025-09-24_23-12-57_p3xz52.png'), // Replace with your image's Public ID
       icon: Cloud,
       color: 'from-orange-500 to-red-500'
     },
@@ -325,7 +326,7 @@ const Home = () => {
       path: '/bhaskaracharya-lab',
       tagline: 'Cybersecurity, Blockchain, Web3',
       description: 'Securing the digital future through advanced cybersecurity and blockchain technology research.',
-      image: getCloudinaryUrl('v1709459341/lab-image-5.jpg'), // Replace with your image's Public ID
+      image: getCloudinaryUrl('v1758735862/Screenshot_from_2025-09-24_23-12-57_p3xz52.png'), // Replace with your image's Public ID
       icon: Shield,
       color: 'from-red-500 to-rose-500'
     },
@@ -334,7 +335,7 @@ const Home = () => {
       path: '/agastya-lab',
       tagline: 'Robotics, IoT, Embedded Systems',
       description: 'Developing intelligent robotic systems and IoT solutions for smart environments.',
-      image: getCloudinaryUrl('v1709459341/lab-image-6.jpg'), // Replace with your image's Public ID
+      image: getCloudinaryUrl('v1758735862/Screenshot_from_2025-09-24_23-12-57_p3xz52.png'), // Replace with your image's Public ID
       icon: Cpu,
       color: 'from-indigo-500 to-blue-500'
     },
@@ -343,12 +344,13 @@ const Home = () => {
       path: '/navya-vigyan-lab',
       tagline: 'Interdisciplinary & Experimental Technology',
       description: 'Pushing boundaries through experimental research and interdisciplinary technology innovation.',
-      image: getCloudinaryUrl('v1709459341/lab-image-1.jpg'), // Use imported local image (or another)
+      image: getCloudinaryUrl('v1758735862/Screenshot_from_2025-09-24_23-12-57_p3xz52.png'), // Use imported local image (or another)
       icon: FlaskConical,
       color: 'from-yellow-500 to-orange-500'
     }
   ];
 
+  // Events section on Home page
   const events = [
     {
       title: 'Tech Innovation Summit 2024',
@@ -356,7 +358,7 @@ const Home = () => {
       time: '9:00 AM - 5:00 PM',
       location: 'University Auditorium',
       description: 'Join us for a day of cutting-edge technology presentations, workshops, and networking opportunities.',
-      image: getCloudinaryUrl('v1709459341/event-image-1.jpg'), // Replace with your image's Public ID
+      image: getCloudinaryUrl('v1758735862/Screenshot_from_2025-09-24_23-12-57_p3xz52.png'), // Replace with your image's Public ID
       status: 'Open'
     },
     {
@@ -365,7 +367,7 @@ const Home = () => {
       time: '2:00 PM - 6:00 PM',
       location: 'Computer Lab 3',
       description: 'Hands-on workshop covering the latest developments in AI and machine learning technologies.',
-      image: getCloudinaryUrl('v1709459341/event-image-2.jpg'), // Replace with your image's Public ID
+      image: getCloudinaryUrl('v1758735862/Screenshot_from_2025-09-24_23-12-57_p3xz52.png'), // Replace with your image's Public ID
       status: 'Open'
     },
     {
@@ -399,7 +401,7 @@ const Home = () => {
         <polyline 
           points={mouseTrailPath} 
           fill="none" 
-          stroke="white" 
+          stroke="red" 
           strokeWidth="2" 
           strokeLinecap="round" 
           strokeLinejoin="round" 
@@ -407,7 +409,7 @@ const Home = () => {
       </svg>
 
 
-      {/* Lab Images Section */}
+      {/* About sectoin of home pageb with Lab Images Section */}
       <section id="about" className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-start mb-16">
@@ -416,7 +418,7 @@ const Home = () => {
                 Our <span className="gradient-text">Research Environment</span>
               </h2>
               <p className="text-xl text-white font-body">
-                State-of-the-art facilities where innovation comes to life
+                State-of-the-art facilities where innovation comes to life.
               </p>
             </div>
             <div className="w-full md:w-1/2 mt-8 md:mt-0">

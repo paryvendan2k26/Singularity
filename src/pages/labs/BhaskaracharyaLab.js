@@ -348,7 +348,10 @@ const BhaskaracharyaLab = () => {
               security experts and blockchain innovators creating a safer digital world.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-red-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center space-x-2">
+              <button 
+              onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLScydNENhXxXQhfKd8nWbawxD2y0jtPTcYjqFqRqhOyz-Da3tw/viewform?usp=header', '_blank')}
+              className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-red-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center space-x-2"
+              >
                 <span>Apply Now</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
