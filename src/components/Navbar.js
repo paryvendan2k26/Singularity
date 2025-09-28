@@ -134,7 +134,7 @@ const Navbar = () => {
             ))}
             
             {/* --- Auth links for desktop --- */}
-            <div className="flex items-center space-x-2 pl-4">
+            <div className="flex items-center space-x-4 pl-4">
               {user ? (
                 <>
                   <span className="text-white font-semibold">Hi, {user.username}</span>

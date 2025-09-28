@@ -46,19 +46,19 @@ const BlogListPage = () => {
     // --- CHANGED: Added pt-24 (padding-top) to push content down below the navbar ---
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24 text-white">
       
-      {/* --- CHANGED: Restructured the header for better alignment --- */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold font-heading">The Singularity Blogs</h1>
-      </div>
-
-      {/* Show "Add New Blog" button only if user is logged in */}
-      {user && (
-        <div className="text-right mb-8">
-          <Link to="/create-blog" className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity inline-block">
-            + Add New Blog
-          </Link>
+      {/* --- UPDATED: Restructured header with centered button --- */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold font-heading">The Singularity Blogs</h1>
+          
+          {/* Show "Add New Blog" button only if user is logged in */}
+          {user && (
+            <div className="mt-6">
+              <Link to="/create-blog" className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity inline-block">
+                + Add New Blog
+              </Link>
+            </div>
+          )}
         </div>
-      )}
 
       {/* --- CHANGED: This is now a responsive grid instead of a single column --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
