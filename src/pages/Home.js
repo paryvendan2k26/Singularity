@@ -149,16 +149,7 @@ const HeroSection = () => {
         </div>
 
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;700&display=swap');
         
-        .font-heading {
-          font-family: 'Bungee', cursive;
-        }
-        
-        .font-body {
-          font-family: 'Inter', sans-serif;
-        }
-
         .bg-gradient-radial {
           background: radial-gradient(circle at center, var(--tw-gradient-stops));
         }
