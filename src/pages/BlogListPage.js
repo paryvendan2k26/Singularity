@@ -57,23 +57,25 @@ const BlogListPage = () => {
         {blogs.length > 0 ? (
           blogs.map(blog => (
             <div key={blog._id} className="glass-effect p-6 rounded-lg">
+              
+              {/* --- ADD THIS BLOCK TO DISPLAY MEDIA --- */}
+              {blog.mediaUrl && (
+                <div className="mb-4 rounded-lg overflow-hidden">
+                  {blog.mediaType === 'image' ? (
+                    <img src={blog.mediaUrl} alt={blog.title} className="w-full h-auto object-cover" />
+                  ) : (
+                    <video src={blog.mediaUrl} controls className="w-full h-auto" />
+                  )}
+                </div>
+              )}
+
               <h2 className="text-2xl font-bold mb-2 text-cyan-400">{blog.title}</h2>
               <p className="text-gray-400 text-sm mb-4">
                 By {blog.authorName} on {new Date(blog.createdAt).toLocaleDateString()}
               </p>
               <p className="text-gray-300 whitespace-pre-wrap">{blog.content}</p>
 
-              {/* Show Edit/Delete buttons only if the logged-in user is the author */}
-              {user && user.id === blog.authorId && (
-                <div className="flex items-center space-x-4 mt-4">
-                  <Link to={`/edit-blog/${blog._id}`} className="bg-yellow-500 text-black px-3 py-1 rounded font-semibold text-sm hover:bg-yellow-600">
-                    Edit
-                  </Link>
-                  <button onClick={() => handleDelete(blog._id)} className="bg-red-500 text-white px-3 py-1 rounded font-semibold text-sm hover:bg-red-600">
-                    Delete
-                  </button>
-                </div>
-              )}
+              {/* ... (Edit/Delete buttons are the same) */}
             </div>
           ))
         ) : (
