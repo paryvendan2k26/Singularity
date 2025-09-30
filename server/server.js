@@ -11,12 +11,30 @@ const blogRoutes = require('./routes/blogRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-const corsOptions = {
-  origin: 'https://thesingularitylab.netlify.app',
-  optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
+// Middleware - UPDATED CORS CONFIGURATION
+const allowedOrigins = [
+  'https://thesingularitylab.netlify.app',
+  'http://localhost:3000',
+  'http://localhost:5173'
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range']
+}));
+
 app.use(express.json());
 
 // Use Routes
@@ -34,7 +52,7 @@ const startServer = async () => {
   } catch (error) {
     console.error('!!! MongoDB connection error: !!!');
     console.error(error);
-    process.exit(1); // Exit the process with a failure code
+    process.exit(1);
   }
 };
 
