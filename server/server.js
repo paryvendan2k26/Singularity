@@ -1,13 +1,12 @@
-//backend server // server/server.js
+// server/server.js
 
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-// Import routes
 const userRoutes = require('./routes/userRoutes');
-const blogRoutes = require('./routes/blogRoutes'); // <-- Add this line
+const blogRoutes = require('./routes/blogRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,19 +17,25 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
-
 app.use(express.json());
-
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected successfully.'))
-  .catch(err => console.error('MongoDB connection error:', err));
 
 // Use Routes
 app.use('/api/users', userRoutes);
-app.use('/api/blogs', blogRoutes); // <-- Add this line
+app.use('/api/blogs', blogRoutes);
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
-});
+// --- NEW, MORE ROBUST WAY TO START THE SERVER ---
+const startServer = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('MongoDB connected successfully.');
+    app.listen(PORT, () => {
+      console.log(`Server is running on port: ${PORT}`);
+    });
+  } catch (error) {
+    console.error('!!! MongoDB connection error: !!!');
+    console.error(error);
+    process.exit(1); // Exit the process with a failure code
+  }
+};
+
+startServer();
