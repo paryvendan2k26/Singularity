@@ -127,7 +127,7 @@ const VarahamihiraLab = () => {
             objectFit: 'cover',
             zIndex: 1
           }}
-          src="https://res.LucideNetworkinary.com/djtemmctt/video/upload/v1758569986/WhatsApp_Video_2025-09-23_at_12.34.51_AM_apnvdi.mp4"
+          src="https://res.cloudinary.com/djtemmctt/video/upload/v1758569986/WhatsApp_Video_2025-09-23_at_12.34.51_AM_apnvdi.mp4"
         />
 
         {/* Overlay for readability */}
