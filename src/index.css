@@ -140,3 +140,14 @@
 .font-body {
   font-family: 'Inter', sans-serif;
 }
+
+/* Add this to 3D medel viewer*/
+
+.model-viewer {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.model-viewer.loaded {
+  opacity: 1;
+}
