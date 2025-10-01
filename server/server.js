@@ -11,18 +11,22 @@ const blogRoutes = require('./routes/blogRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// // Middleware - Secure CORS Configuration
-// const allowedOrigins = [
-//   'https://thesingularitylab.netlify.app',
-//   'http://localhost:3000'
-// ];
+// Middleware - Secure CORS Configuration
+const allowedOrigins = [
+  'https://thesingularitylab.netlify.app',
+  'http://localhost:3000'
+];
 
-app.use(cors({
-  origin: '*',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200
+};
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -36,7 +40,7 @@ const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB connected successfully.');
-    app.listen(PORT, '0.0.0.0', () => {
+    app.listen(PORT, () => {
       console.log(`Server is running on port: ${PORT}`);
     });
   } catch (error) {
