@@ -11,27 +11,31 @@ const blogRoutes = require('./routes/blogRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware - UPDATED CORS CONFIGURATION
+// Middleware - Secure CORS Configuration
 const allowedOrigins = [
   'https://thesingularitylab.netlify.app',
-  'http://localhost:3000',
-  'http://localhost:5173'
+  'http://localhost:3000'
 ];
 
-app.use(cors({
-  origin: '*', // Allow all origins temporarily to test
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Use Routes
 app.use('/api/users', userRoutes);
 app.use('/api/blogs', blogRoutes);
 
-// --- NEW, MORE ROBUST WAY TO START THE SERVER ---
+// --- Robust Server Startup Logic ---
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
@@ -42,7 +46,7 @@ const startServer = async () => {
   } catch (error) {
     console.error('!!! MongoDB connection error: !!!');
     console.error(error);
-    process.exit(1);
+    process.exit(1); // Exit the process with a failure code
   }
 };
 
