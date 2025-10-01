@@ -7,6 +7,18 @@ const User = require('../models/User');
 
 const validator = require('validator'); 
 
+// Add CORS headers to all routes
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 // === REGISTER A NEW USER ===
 router.post('/register', async (req, res) => {

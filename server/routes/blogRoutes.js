@@ -7,6 +7,18 @@ const auth = require('../middleware/auth');
 
 const upload = require('../config/cloudinary');
 
+// Add CORS headers to all routes
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 // === GET ALL BLOGS (Public) ===
 router.get('/', async (req, res) => {
