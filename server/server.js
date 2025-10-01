@@ -25,11 +25,17 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
+  credentials: true,
   optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Health check route
+app.get('/', (req, res) => {
+  res.json({ message: 'Server is running!', status: 'OK' });
+});
 
 // Use Routes
 app.use('/api/users', userRoutes);
@@ -40,13 +46,13 @@ const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB connected successfully.');
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server is running on port: ${PORT}`);
     });
   } catch (error) {
     console.error('!!! MongoDB connection error: !!!');
     console.error(error);
-    process.exit(1); // Exit the process with a failure code
+    process.exit(1);
   }
 };
 
