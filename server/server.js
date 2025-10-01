@@ -11,12 +11,30 @@ const blogRoutes = require('./routes/blogRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS Configuration
-app.use(cors({
-  origin: ['https://thesingularitylab.netlify.app', 'http://localhost:3000'],
-  credentials: true
-}));
+// IMPORTANT: CORS must be configured BEFORE routes
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'https://thesingularitylab.netlify.app',
+      'http://localhost:3000'
+    ];
+    
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Health check
