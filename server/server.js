@@ -26,10 +26,16 @@ const corsOptions = {
     }
   },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ADD THIS
+  allowedHeaders: ['Content-Type', 'Authorization'], // ADD THIS
   optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options('*', cors(corsOptions)); // ADD THIS LINE
+
 app.use(express.json());
 
 // Health check route
