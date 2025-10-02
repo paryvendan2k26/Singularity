@@ -11,7 +11,7 @@ const blogRoutes = require('./routes/blogRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware - CORS Configuration
+// Middleware - CORS Configuration 
 app.use(cors({
   origin: '*',
   credentials: true,
